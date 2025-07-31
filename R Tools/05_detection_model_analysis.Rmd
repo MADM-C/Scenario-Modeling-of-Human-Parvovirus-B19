@@ -54,7 +54,7 @@ base_case_final <- base_case_raw %>% mutate(Inc_B19_Deaths = NA) %>%
   mutate(Inc_Transfusions = NA) %>%as.matrix()
 # Incremental Deaths and Transfusions
 base_case_final[, 5] <- as.numeric(base_case_final[, 2]) - as.numeric(base_case_final[1, 2])
-base_case_final[, 6] <- as.numeric(base_case_final[, 3]) - as.numeric(base_case_final[1, 3])
+base_case_final[, 6] <- as.numeric(base_case_final[, 4]) - as.numeric(base_case_final[1, 4])
 base_case_final
 
 
