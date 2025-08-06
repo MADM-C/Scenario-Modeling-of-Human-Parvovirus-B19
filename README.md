@@ -36,14 +36,7 @@
 - The HyVSS tool can be found in the "R" folder, select the "05_screen_vax_model_analysis.Rmd" in RStudio and run.
 - The .Rmd will pull in the parameter values from the "01_params_functions.R" file and the functions modeling the decision tree from the "02_screen_vax_model_functions.R" file.
 - The validation functions for the HyVSS tool will be pulled from the "04_screen_vax_validation.R" file.
-- Results and figures will populate under each code chunk for the .Rmd. Figures may also print as a .png into the "Results" and "HyVSS Plots" folders. 
-
-
-## Other Miscellaneous Filepaths
-
-- The "Archive" consists of older versions of code and functions.
-- The "R" folder contains a "!boneyard" with older versions of code with previous nameing conventions.
-
+- Results and figures will populate under each code chunk for the .Rmd. Figures may also print as a .png into the "Results" and "HyVSS Plots" folders.
 
 
 ## Contact
