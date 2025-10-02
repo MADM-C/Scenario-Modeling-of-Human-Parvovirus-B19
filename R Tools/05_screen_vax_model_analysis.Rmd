@@ -5,7 +5,7 @@ date: '`r Sys.Date()`'
 output: html_document
 code_folding: hide
 ---
-```{r, echo = FALSE, include = FALSE}
+```{r, setup, echo = FALSE, include = FALSE}
 # Clear environment
 rm(list=ls())
 
@@ -16,17 +16,18 @@ p_load("devtools", "scales", "ellipse", "lazyeval", "igraph",  "ggraph",
        "dampack", "data.table", "tornado", "ggplot2", "viridis",
        "kableExtra", "mc2d")                
 
+knitr::opts_knit$set(root.dir = "~/R/parvo-b19-modeling/")
 ```
 ***
 ```{r}
 ## Load model parameters
-source("01_params_functions.R")
+source("R Tools/01_params_functions.R")
 l_params_all <- load_params()
 v_names_str <- c("Status Quo", "Screening", "Vaccination", "Vaccination and Screening")
 n_str <- length(v_names_str)
 
 ## Load model
-source("02_screen_vax_model_functions.R")
+source("R Tools/02_screen_vax_model_functions.R")
 
 ```
 ***
@@ -102,7 +103,7 @@ owsa_results$owsa_B19_Stillbirths <- owsa_results$owsa_B19_Stillbirths %>%
                                    ifelse(parameter == "p_vax", "Vaccination Coverage",
                                           ifelse(parameter == "p_vax_eff", "Vaccine Effectiveness",
                                                  parameter))))) %>%
-  mutate(strategy = ifelse(strategy == "Status.Quo", "Status Quo",
+  mutate(Intervention = ifelse(strategy == "Status.Quo", "Status Quo",
                            ifelse(strategy == "Vaccination.and.Screening", "Screening + Vaccination", 
                                   ifelse(strategy == "Screening", "Screening",
                                          ifelse(strategy == "Vaccination", "Vaccination", strategy)))))
@@ -110,12 +111,12 @@ plot(owsa_results$owsa_B19_Stillbirths) +
   ylab("Expected B19 Stillbirths") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
   facet_wrap(~parameter, labeller = label_wrap_gen(30), scales = "free_x") +
-  labs(colour = "Strategy") +
+  labs(colour = "Intervention") +
   theme_bw() +
   geom_vline(data = intercepts, aes(xintercept = xint), linetype = "dashed") +
   theme(legend.position = "bottom") 
 
-ggsave(path = "Results/HyVSS Plots", filename = "owsa_stillbirths.png")
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "owsa_stillbirths.png")
 
 # B19 fetal deaths
 owsa_results$owsa_B19_Deaths <- owsa_results$owsa_B19_Deaths %>%
@@ -124,7 +125,7 @@ owsa_results$owsa_B19_Deaths <- owsa_results$owsa_B19_Deaths %>%
                                    ifelse(parameter == "p_vax", "Vaccination Coverage",
                                           ifelse(parameter == "p_vax_eff", "Vaccine Effectiveness",
                                                  parameter))))) %>%
-  mutate(strategy = ifelse(strategy == "Status.Quo", "Status Quo",
+  mutate(Intervention = ifelse(strategy == "Status.Quo", "Status Quo",
                            ifelse(strategy == "Vaccination.and.Screening", "Screening + Vaccination", 
                                   ifelse(strategy == "Screening", "Screening",
                                          ifelse(strategy == "Vaccination", "Vaccination", strategy)))))
@@ -132,12 +133,12 @@ plot(owsa_results$owsa_B19_Deaths) +
   ylab("Expected B19 Fetal Deaths") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
   facet_wrap(~parameter, labeller = label_wrap_gen(30), scales = "free_x") +
-  labs(colour = "Strategy") +
+  labs(colour = "Intervention") +
   theme_bw() +
   geom_vline(data = intercepts, aes(xintercept = xint), linetype = "dashed") +
   theme(legend.position = "bottom") 
 
-ggsave(path = "Results/HyVSS Plots", filename = "owsa_b19deaths.png")
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "owsa_b19deaths.png")
 
 # Transfusions
 owsa_results$owsa_Transfusions <- owsa_results$owsa_Transfusions %>%
@@ -146,7 +147,7 @@ owsa_results$owsa_Transfusions <- owsa_results$owsa_Transfusions %>%
                                    ifelse(parameter == "p_vax", "Vaccination Coverage",
                                           ifelse(parameter == "p_vax_eff", "Vaccine Effectiveness",
                                                  parameter))))) %>%
-  mutate(strategy = ifelse(strategy == "Status.Quo", "Status Quo",
+  mutate(Intervention = ifelse(strategy == "Status.Quo", "Status Quo",
                            ifelse(strategy == "Vaccination.and.Screening", "Screening + Vaccination", 
                                   ifelse(strategy == "Screening", "Screening",
                                          ifelse(strategy == "Vaccination", "Vaccination", strategy)))))
@@ -154,11 +155,11 @@ plot(owsa_results$owsa_Transfusions) +
   ylab("Expected Fetal Transfusions") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
   facet_wrap(~parameter, labeller = label_wrap_gen(30), scales = "free_x") +
-  labs(colour = "Strategy") +
+  labs(colour = "Intervention") +
   theme_bw() +
   geom_vline(data = intercepts, aes(xintercept = xint), linetype = "dashed") +
   theme(legend.position = "bottom") 
-ggsave(path = "Results/HyVSS Plots", filename = "owsa_transfusion.png")
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "owsa_transfusion.png")
 
 owsa_results$owsa_B19_Stillbirths$outcome <- "B19 Stillbirths"
 owsa_results$owsa_B19_Deaths$outcome      <- "B19 Fetal Deaths"
@@ -167,7 +168,7 @@ owsa_results$owsa_Transfusions$outcome    <- "Fetal Transfusions"
 df_owsa_all <- rbind(owsa_results$owsa_B19_Stillbirths,
                      owsa_results$owsa_B19_Deaths,
                      owsa_results$owsa_Transfusions)
-df_owsa_all$strategy <- factor(df_owsa_all$strategy,
+df_owsa_all$Intervention <- factor(df_owsa_all$Intervention,
                                levels = c("Status Quo", "Screening", "Vaccination", "Screening + Vaccination"))
 
 equal_breaks <- function(n = 3, s = 0.05, r = 0,...){
@@ -178,20 +179,21 @@ equal_breaks <- function(n = 3, s = 0.05, r = 0,...){
   }
 }
 
-ggplot(data = df_owsa_all, aes(x = param_val, y = outcome_val, color = strategy)) +
+ggplot(data = df_owsa_all, aes(x = param_val, y = outcome_val, color = Intervention)) +
   geom_line(size = 1.2) +
   facet_grid(outcome~parameter, labeller = label_wrap_gen(18),
              scales = "free") +
-  ylab("") +
+  ylab("Incidence per 100,000 pregnancies") +
   xlab("Parameter Value") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1),
                      breaks = equal_breaks(n = 4, s = 0.2)) +
   scale_color_viridis(option = "turbo", discrete = TRUE) +
-  labs(colour = "Strategy") +
+  labs(colour = "Intervention") +
   theme_bw() +
   geom_vline(data = intercepts, aes(xintercept = xint), linetype = "dashed") +
   theme(legend.position = "bottom") 
-ggsave(path = "Results/HyVSS Plots", filename = "owsa_all.png")
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "owsa_all.png",
+       height = 6.5, width = 6.5)
 ```
 
 
@@ -247,7 +249,7 @@ heat_deaths_ii <- ggplot(data = twsa_sb, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_deaths_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_test.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_test.png",
        height = 7, width = 7)
 
 twsa_fd    <- twsa_results$twsa_B19_Deaths %>%
@@ -272,7 +274,7 @@ heat_fd_ii <- ggplot(data = twsa_fd, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_fd_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_test.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_test.png",
        height = 7, width = 7)
 
 twsa_transfusions <- twsa_results$twsa_Transfusions %>%
@@ -297,7 +299,7 @@ heat_transfusions_ii <- ggplot(data = twsa_transfusions, mapping = aes(x = p_imm
   theme(legend.position = "none")
 
 heat_transfusions_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_test.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_test.png",
        height = 7, width = 7)
 
 ## heat maps status quo vs vaccination
@@ -323,7 +325,7 @@ heat_deaths_ii <- ggplot(data = twsa_deaths, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_deaths_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_vax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_vax.png",
        height = 7, width = 7)
 
 twsa_fd    <- twsa_results$twsa_B19_Deaths %>%
@@ -348,7 +350,7 @@ heat_fd_ii <- ggplot(data = twsa_fd, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_fd_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_vax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_vax.png",
        height = 7, width = 7)
 
 twsa_transfusions <- twsa_results$twsa_Transfusions %>%
@@ -373,7 +375,7 @@ heat_transfusions_ii <- ggplot(data = twsa_transfusions, mapping = aes(x = p_imm
   theme(legend.position = "none")
 
 heat_transfusions_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_vax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_vax.png",
        height = 7, width = 7)
 
 ## heat maps status quo vs vaccination + Screening
@@ -399,7 +401,7 @@ heat_deaths_ii <- ggplot(data = twsa_deaths, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_deaths_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_testvax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_deaths_sq_testvax.png",
        height = 7, width = 7)
 
 twsa_fd    <- twsa_results$twsa_B19_Deaths %>%
@@ -424,7 +426,7 @@ heat_fd_ii <- ggplot(data = twsa_fd, mapping = aes(x = p_imm,
   theme(legend.position = "none")
 
 heat_fd_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_testvax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_fd_sq_testvax.png",
        height = 7, width = 7)
 
 twsa_transfusions <- twsa_results$twsa_Transfusions %>%
@@ -449,11 +451,11 @@ heat_transfusions_ii <- ggplot(data = twsa_transfusions, mapping = aes(x = p_imm
   theme(legend.position = "none")
 
 heat_transfusions_ii
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_testvax.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_imm_inf_trans_sq_testvax.png",
        height = 7, width = 7)
 
 
-### Optimal strategy (vaccine coverage and effectiveness)
+### Preferred strategy (vaccine coverage and effectiveness)
 df_params_twsa_opt <- data.frame(pars = c("p_vax", "p_vax_eff"),
                              # min parameter values
                              min  = c(0.2, 0.5), 
@@ -481,16 +483,16 @@ twsa_results_opt <- twsa_results_opt %>%
   mutate(outcome_val = outcome_val * -1) %>%
   rename(`Vaccination Coverage` = p_vax) %>%
   rename(`Vaccine Effectiveness` = p_vax_eff)
-# plot optimal strategy as a function of the two parameters varied in the two-way DSA
+# plot preferred strategy as a function of the two parameters varied in the two-way DSA
 plot(twsa_results_opt) +
   scale_fill_manual(values=c("#1AE4B6FF", "#FABA39FF")) +
   theme_bw() +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  labs(fill = "Strategy") +
+  labs(fill = "Intervention") +
   geom_point(mapping = aes(x = 0.5, y = 0.9), shape = 8)
 
-ggsave(path = "Results/HyVSS Plots", filename = "twsa_optimal.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "twsa_preferred.png",
        height = 5, width = 9)
 ```
 
@@ -590,25 +592,25 @@ df_psa_fd <- psa_output[["B19_Deaths"]][["other_outcome"]] %>%
 df_long_sb <- df_psa_stillbirth %>%
   dplyr::mutate(id = row_number()) %>%
   dplyr::select(c(screening_inc, vax_inc, vax_screening_inc, id)) %>%
-  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Strategy", values_to = "Incremental")  %>%
+  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Intervention", values_to = "Incremental")  %>%
   dplyr::mutate(Outcome = "B19 Stillbirth")
 df_long_fd <- df_psa_fd %>%
   dplyr::mutate(id = row_number()) %>%
   dplyr::select(c(screening_inc, vax_inc, vax_screening_inc, id)) %>%
-  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Strategy", values_to = "Incremental") %>%
+  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Intervention", values_to = "Incremental") %>%
   dplyr::mutate(Outcome = "B19 Fetal Deaths") 
 df_long_trans <- df_psa_trans %>%
   dplyr::mutate(id = row_number()) %>%
   dplyr::select(c(screening_inc, vax_inc, vax_screening_inc, id)) %>%
-  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Strategy", values_to = "Incremental") %>%
+  pivot_longer(cols = c(screening_inc, vax_inc, vax_screening_inc), names_to = "Intervention", values_to = "Incremental") %>%
   dplyr::mutate(Outcome = "Transfusions")
 df_long_psa_all <- rbind(df_long_sb, df_long_fd, df_long_trans) %>%
-  mutate(Strategy = ifelse(Strategy == "vax_screening_inc", "Screening + Vaccination", 
-                           ifelse(Strategy == "screening_inc", "Screening",
-                                  ifelse(Strategy == "vax_inc", "Vaccination", Strategy))))
-ggplot(data = df_long_psa_all, aes(x = Incremental, fill = Strategy)) +
+  mutate(Intervention = ifelse(Intervention == "vax_screening_inc", "Screening + Vaccination", 
+                           ifelse(Intervention == "screening_inc", "Screening",
+                                  ifelse(Intervention == "vax_inc", "Vaccination", Intervention))))
+ggplot(data = df_long_psa_all, aes(x = Incremental, fill = Intervention)) +
   geom_density() +
-  facet_grid(Strategy~Outcome, labeller = label_wrap_gen(18),
+  facet_grid(Intervention~Outcome, labeller = label_wrap_gen(18),
              scales = "free_y")
 
 df_scatter_sb <- df_psa_stillbirth %>%
@@ -628,9 +630,9 @@ ggplot(data = df_scatter_sb, aes(x = screening_inc, y = vax_inc)) +
   # xlim(0, 2700) +
   # ylim(0, 2700) +
   scale_color_manual(values=c("#1AE4B6FF", "#FABA39FF")) +
-  guides(color=guide_legend(title="Optimal Strategy")) +
+  guides(color=guide_legend(title="Preferred Intervention")) +
   annotate("text", x = c(3, 30), y = c(60, 5), label = c("93.95%", "6.05%"))
-ggsave(path = "Results/HyVSS Plots", filename = "psa_optimal_sb.png",
+ggsave(path = "R Tools/Results/HyVSS Plots", filename = "psa_preferred_sb.png",
        height = 5, width = 7)
 v_opt_sb <- table(df_scatter_sb$max_strat)
 
@@ -649,7 +651,7 @@ v_opt_sb <- table(df_scatter_sb$max_strat)
 #   scale_y_continuous(labels = comma) +
 #   theme_bw() +
 #   scale_color_manual(values=c("#1AE4B6FF", "#FABA39FF")) +
-#   guides(color=guide_legend(title="Optimal Strategy"))
+#   guides(color=guide_legend(title="Preferred Intervention"))
 # table(df_scatter_fd$max_strat)
 # 
 # df_scatter_tr <- df_psa_trans %>%
@@ -667,7 +669,7 @@ v_opt_sb <- table(df_scatter_sb$max_strat)
 #   scale_y_continuous(labels = comma) +
 #   theme_bw() +
 #   scale_color_manual(values=c("#1AE4B6FF", "#FABA39FF")) +
-#   guides(color=guide_legend(title="Optimal Strategy"))
+#   guides(color=guide_legend(title="Preferred Intervention"))
 # table(df_scatter_tr$max_strat)
 
 ### Ranges for table
