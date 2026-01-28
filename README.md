@@ -1,5 +1,33 @@
 # Human Parvovirus B19 (B19) Burden of Disease and Scenario Modeling Toolset
 
+## Table of Contents
+- [Project Description](#project-description)
+- [Intended Use Cases and Limitations](#intended-use-cases-and-limitations)
+- [Installation and Run Guide](#installation-and-run-guide)
+- [Organization Information](#organization-information)
+- [Additional Information](#additional-information)
+- [License](#license)
+
+## Project Description
+Human parvovirus B19 (B19) is a common infection that typically causes mild symptoms but can cause severe fetal complications among pregnant persons. There are limited data to inform public health responses because B19 is not a reportable disease. The most recent uptick in B19 cases was observed in 2024 across Europe and the U.S., triggering a CDC Health Alert Network notification in August 2024. This increase was supported by electronic health record (EHR) data from Minnesota, which found 19 B19-associated pregnancy complications within 60 days of a B19 diagnosis in a 10-month period in 2024, compared to only 28 complications in the prior 60-month period from 2019-2023.  
+  
+To support public health responses for current and future B19 outbreaks, we developed 3 tools in partnership with the Minnesota Department of Health (MDH) and the Minnesota Electronic Health Records Consortium (MNEHRC). These tools are meant to help provide public health practitioners with estimates of burden of disease and the impact of varying public health interventions on fetal outcomes.
+
+- The Burden of Disease tool is a spreadsheet-based model that estimates the total number of B19-related severe fetal outcomes based on user-defined inputs.
+- The Increased Detection Scenariom Modeling (IDS) tool uses a decision tree model in R to estimate the impact of improving detection of B19 as a scenario in averting B19-related fetal deaths and improving B19 transfusions.
+- The Hypothetical Vaccination and Screening Scenario Modeling (HyVSS) tool uses a decision tree model in R to estimate the impact of a hypothetical vaccination and screening in different scenarios on averting B19-related fetal deaths and improving B19 transfusions.
+
+## Intended Use Cases and Limitations
+
+## Installation and Run Guide
+
+## Organization Information
+
+## Additional Information
+
+## License
+
+
 
 ## About
 
