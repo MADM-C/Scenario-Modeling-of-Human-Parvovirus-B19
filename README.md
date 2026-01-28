@@ -42,14 +42,34 @@ Tool 3 - Hypothetical Vaccination and Screening Scenario Modeling (HyVSS)
 
 
 ## Organization Information
-This project was developed by the Midwest Analytics and Disease Modeling Center (MADMC) a CDC INSIGHT NET Center.  
+This project was developed by the Midwest Analytics and Disease Modeling Center ([MADMC](https://www.sph.umn.edu/research/centers/midwest-analytics-and-disease-modeling/)) a CDC INSIGHT NET Center.  
   
 The main contributing authors are as follows: Ritesh Sivakumar, Matthew Kaufmann, Margo Wheatley, Xiao Zang, Lindsey Erickson, Elizabeth Dufort, Sarah Lim, Ruth Lynfield, Stephen Contag, Kristin Sweet, and Eva Enns. 
 
 
 ## Additional Information
+There are currently 2 papers under review for the modeling work conducted in this project. MADMC has also presented multiple posters and presentations about our B19 work at various conferences and seminars. 
+
 
 ## License
+Copyright (c) 2022 Consortium of Infectious Disease Modeling Hubs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
