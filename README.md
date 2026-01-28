@@ -21,7 +21,9 @@ To support public health responses for current and future B19 outbreaks, we deve
 
 
 ## Intended Use Cases and Limitations
+As B19 is not a reportable disease and limited data are available to inform public health responses, this project sought to fill knowledge gaps by estimating burden of disease, and providing scenario models to help assess the benefits of various interventions or policy changes on minmizing B19-related complications in pregnancy.   
 
+Our project and models did have some limitations. Validating model results was challenging, due to the lack of published data on B19. The available literature which was used to inform model paramaters was also often from studies conducted over twenty years prior, or from other countries that are not representative of the U.S. population, as a result our models relied heavily on assumptions and clinical expertise from subject matter experts. We did conduct sensitivity analyses on these parameters to help understand the parameters with the greatest impact on model results. Finally, we made simplyfing assumptions like maternal infection occuring only between 14-20 weeks gestation (WG) were intervenable and maternal infections <13 WG were excluded from out estimates on stillbirth. 
 
 ## Installation and Run Guide
 Tool 1 - Burden of Disease Spreadsheet
@@ -44,7 +46,9 @@ Tool 3 - Hypothetical Vaccination and Screening Scenario Modeling (HyVSS)
 ## Organization Information
 This project was developed by the Midwest Analytics and Disease Modeling Center ([MADMC](https://www.sph.umn.edu/research/centers/midwest-analytics-and-disease-modeling/)) a CDC INSIGHT NET Center.  
   
-The main contributing authors are as follows: Ritesh Sivakumar, Matthew Kaufmann, Margo Wheatley, Xiao Zang, Lindsey Erickson, Elizabeth Dufort, Sarah Lim, Ruth Lynfield, Stephen Contag, Kristin Sweet, and Eva Enns. 
+The main contributing authors are as follows: Ritesh Sivakumar, Matthew Kaufmann, Margo Wheatley, Xiao Zang, Lindsey Erickson, Elizabeth Dufort, Sarah Lim, Ruth Lynfield, Stephen Contag, Kristin Sweet, and Eva Enns.  
+
+Please contact us at madmc@umn.edu. 
 
 
 ## Additional Information
