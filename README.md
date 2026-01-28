@@ -11,7 +11,7 @@
 
 
 ## Project Description
-Human parvovirus B19 (B19) is a common infection that typically causes mild symptoms but can cause severe fetal complications among pregnant persons. There are limited data to inform public health responses because B19 is not a reportable disease. The most recent uptick in B19 cases was observed in 2024 across Europe and the U.S., triggering a CDC Health Alert Network notification in August 2024. This increase was supported by electronic health record (EHR) data from Minnesota, which found 19 B19-associated pregnancy complications within 60 days of a B19 diagnosis in a 10-month period in 2024, compared to only 28 complications in the prior 60-month period from 2019-2023.  
+Human parvovirus B19 (B19) is a common infection that typically causes mild symptoms but can cause severe fetal complications among pregnant persons. There are limited data to inform public health responses because B19 is not a reportable disease. The most recent uptick in B19 cases was observed in 2024 across Europe and the U.S., triggering a [CDC](https://www.cdc.gov/han/2024/han00514.html) Health Alert Network notification in August 2024. This increase was supported by electronic health record (EHR) data from Minnesota, which found 19 B19-associated pregnancy complications within 60 days of a B19 diagnosis in a 10-month period in 2024, compared to only 28 complications in the prior 60-month period from 2019-2023.  
   
 To support public health responses for current and future B19 outbreaks, we developed 3 tools in partnership with the Minnesota Department of Health (MDH) and the Minnesota Electronic Health Records Consortium (MNEHRC). These tools are meant to help provide public health practitioners with estimates of burden of disease and the impact of varying public health interventions on fetal outcomes.
 
@@ -19,7 +19,7 @@ To support public health responses for current and future B19 outbreaks, we deve
 - The Increased Detection Scenariom Modeling (IDS) tool uses a decision tree model in R to estimate the impact of improving detection of B19 as a scenario in averting B19-related fetal deaths and improving B19 transfusions.
 - The Hypothetical Vaccination and Screening Scenario Modeling (HyVSS) tool uses a decision tree model in R to estimate the impact of a hypothetical vaccination and screening in different scenarios on averting B19-related fetal deaths and improving B19 transfusions.
 
-
+[CDC](https://www.cdc.gov/han/2024/han00514.html) and [MDH](https://www.health.state.mn.us/communities/ep/han/2024/aug16parvo.pdf)
 ## Intended Use Cases and Limitations
 
 
