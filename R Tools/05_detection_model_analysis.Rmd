@@ -247,7 +247,7 @@ heat_deaths_ii <- ggplot(data = twsa_deaths, mapping = aes(x = p_imm,
   geom_tile() +
   geom_text(aes(label = round(incremental, 0))) +
   xlab(label = 'Proportion of Pregnant Persons Immune to B19') +
-  ylab(label = 'Probability of Matneral B19 Infection within 14-20 WG') +
+  ylab(label = 'Probability of Maternal B19 Infection within 14-20 WG') +
   ggtitle("Stillbirths Averted") +
   scale_fill_viridis(option = "turbo", alpha = 0.8) +
   guides(fill=guide_legend(title="Stillbirths Averted")) +
